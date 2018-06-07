@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Radio, Button, Divider } from 'semantic-ui-react'
+import { Grid, Radio, Button, Message } from 'semantic-ui-react'
 
 const Perguntas = props => {
     return (
@@ -10,28 +10,32 @@ const Perguntas = props => {
             <span>
                 <h3>PERGUNTA: Qual a profissão bla bla bla</h3>
                 <Grid columns={2}>
-                    <Grid.Row divided>
+                    <Grid.Row>
                         <Grid.Column>
-                            Alternativa 1
-                                
-                            <Radio toggle />
+                            <Message color='yellow'>
+                                <p>Alternativa 1</p>
+                                <Radio toggle />
+                            </Message>
                         </Grid.Column>
                         <Grid.Column>
-                            Alternativa 2
-                            
-                        <Radio toggle />
+                            <Message color='teal'>
+                                <p>Alternativa 2</p>
+                                <Radio toggle />
+                            </Message>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column>
-                            Alternativa 3
-                            
-                        <Radio toggle />
+                            <Message color='pink'>
+                                <p>Alternativa 3</p>
+                                <Radio toggle />
+                            </Message>
                         </Grid.Column>
                         <Grid.Column>
-                            Alternativa 4
-                            
-                        <Radio toggle />
+                            <Message color='brown'>
+                                <p>Alternativa 4</p>
+                                <Radio toggle />
+                            </Message>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

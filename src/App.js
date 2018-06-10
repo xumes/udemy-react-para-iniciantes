@@ -8,7 +8,6 @@ import Categorias from './Jogo/Categorias'
 import Perguntas from './Jogo/Perguntas'
 import Resultado from './Jogo/Resultado'
 import Ranking from './Jogo/Ranking'
-import Header from './Jogo/Header'
 
 class App extends Component {
   render() {

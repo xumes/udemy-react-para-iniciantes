@@ -12,4 +12,9 @@ const firebaseInfo = {
 const db = firebase.database(firebaseInfo)
 const config = Rebase.createClass(db)
 
+export const providers = {
+    'facebook': new firebase.auth.FacebookAuthProvider,
+}
+
+export const auth = firebaseInfo.auth()
 export default config

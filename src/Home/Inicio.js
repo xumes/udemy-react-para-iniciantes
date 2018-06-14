@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Container, Header, Segment, Card, Button } from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom'
 
-import config, { auth, providers } from './../config'
+import { auth, providers } from './../config'
 import Navegacao from './Navegacao'
 
 class Inicio extends Component {

@@ -14,17 +14,18 @@ class Header extends Component {
     }
 
     componentDidMount() {
-        const usuarioLogado = {
-            nome: localStorage.getItem('nome'),
-            foto: localStorage.getItem('foto')
+        const usuarioAtual = firebase.auth().currentUser
+
+        if (usuarioAtual !== null) {
+            const usuarioLogado = {
+                nome: usuarioAtual.displayName,
+                foto: usuarioAtual.photoURL
+            }
+            this.setState({
+                usuario: usuarioLogado,
+                estaLogado: true
+            })
         }
-
-
-
-        this.setState({
-            usuario: usuarioLogado,
-            estaLogado: !!localStorage.getItem('nome')
-        })
     }
 
     deslogarUsuario() {
@@ -32,8 +33,7 @@ class Header extends Component {
             .auth()
             .signOut()
             .then(() => {
-                localStorage.removeItem('nome')
-                localStorage.removeItem('foto')
+
                 this.setState({
                     usuario: '',
                     estaLogado: false
@@ -45,6 +45,14 @@ class Header extends Component {
     }
 
     render() {
+        if(!this.state.estaLogado){
+            return (
+                <Menu>
+                    <Menu.Item><strong>Quiz</strong></Menu.Item>
+                    <Menu.Item as={Link} to='/'>Para jogar, favor se logar</Menu.Item>
+                </Menu>
+            )
+        }
         const { foto, nome } = this.state.usuario
         return (
             <div>
@@ -61,14 +69,16 @@ class Header extends Component {
 
                             {
                                 this.state.estaLogado &&
-                                <span>
                                     <Menu.Item><Image avatar src={foto} /></Menu.Item>
+                            }
+                            {
+                                this.state.estaLogado &&
                                     <Dropdown item text={nome}>
                                         <Dropdown.Menu>
                                             <Dropdown.Item onClick={this.deslogarUsuario}>Sair</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                </span>
+                             
 
                             }
 

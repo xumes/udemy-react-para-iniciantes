@@ -13,20 +13,24 @@ class Perguntas extends Component {
             estaCarregando: false
         }
 
-        this.carregaPerguntas(this.props.match.params.idCat)
+        
     }
 
-    carregaPerguntas(id){
-        console.log("id da pergunta:", id)
+    componentDidMount(){
+        this.carregaPerguntas(this.props.match.params.nome)
+    }
+
+    carregaPerguntas(cat){
+        console.log("categoria da pergunta:", cat)
         this.setState({
             estaCarregando: true,
             perguntas: {}
         })
-        const url=`https://quiz-xumes.firebaseio.com/categorias/${id}`
+        const url=`https://quiz-xumes.firebaseio.com/categorias.json?orderBy="nome"&equalTo="${cat}"`
         axios
             .get(url)
             .then(dados =>{
-                console.log("Lista de perguntas", dados)
+                console.log("Lista de perguntas", dados.data)
             })
             .catch(err => {
                 console.log('Algum problema ocorreu')
@@ -38,7 +42,7 @@ class Perguntas extends Component {
         return (
             <div>
                 <Navegacao />
-                <h2>Titulo da categoria</h2>
+                <h2>{this.props.match.params.nome}</h2>
                 <p>Mostre que você conhece tudo sobre este assunto</p>
 
                 <span>

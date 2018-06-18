@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Grid, Radio, Button, Message, Icon, Progress } from 'semantic-ui-react'
 import axios from 'axios'
+import _ from 'lodash'
 
 import Navegacao from './Navegacao'
 
@@ -14,6 +15,8 @@ class Perguntas extends Component {
             perguntaAtual: 0,
             totalPerguntas: 0
         }
+
+        this.proximaPergunta = this.proximaPergunta.bind(this)
     }
 
     componentDidMount() {
@@ -31,15 +34,29 @@ class Perguntas extends Component {
             .get(url)
             .then(dados => {
                 const chave = Object.keys(dados.data)[0]
-                console.log("Lista de perguntas", dados.data[chave])
+                const listaDePerguntas = dados.data[chave]
+                console.log("Lista de perguntas", listaDePerguntas)
+                console.log("Quantidade de perguntas", _.size(listaDePerguntas))
                 this.setState({
                     estaCarregando: false,
-                    perguntas: dados.data[chave]
+                    perguntas: listaDePerguntas,
+                    totalPerguntas: _.size(listaDePerguntas)
                 })
             })
             .catch(err => {
                 console.log('Algum problema ocorreu')
+
             })
+    }
+
+    proximaPergunta(){
+        const {perguntaAtual, totalPerguntas} = this.state
+        console.log(perguntaAtual, totalPerguntas)
+        if (perguntaAtual < totalPerguntas -1){
+            this.setState({perguntaAtual: this.state.perguntaAtual + 1})
+        } else {
+            console.log("Terminou as perguntas, mostre as respostas")
+        }
     }
 
     renderPergunta(pergunta) {
@@ -103,7 +120,7 @@ class Perguntas extends Component {
                         //return this.renderPergunta(this.state.perguntas.perguntas[key], key)
                     }
                     <Progress value={this.state.perguntaAtual + 1} total={item.length} progress='ratio'/>
-                    <Button>Finalizar</Button>
+                    <Button onClick={this.proximaPergunta}>Próxima</Button>
                 </span>
             </div>
         )

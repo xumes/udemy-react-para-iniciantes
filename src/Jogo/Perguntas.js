@@ -161,7 +161,7 @@ class Perguntas extends Component {
                     pathname: '/resultado',
                     state: {
                         resultado: this.state.resultado,
-                        pontos: this.state.ponto
+                        pontos: this.state.pontos
                     }
                 }} />
             )

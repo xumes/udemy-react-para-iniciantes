@@ -16,9 +16,10 @@ class Resultado extends Component {
             <div>
             <Navegacao />
                 <h2>Seus resultados</h2>
+                {JSON.stringify(this.props.location.state)}
                 <p>Confira o seu desempenho nesta categoria</p>
                 <Container>
-                    <List divided verticalAlign='left'>
+                    <List divided>
                         <Resposta resposta={resposta}/>
                     </List>
                 </Container>

@@ -15,7 +15,8 @@ class Perguntas extends Component {
             perguntaAtual: 0,
             totalPerguntas: 0,
             resposta: {},
-            pontos:0
+            pontos:0,
+            resultado: []
         }
 
         this.proximaPergunta = this.proximaPergunta.bind(this)
@@ -70,9 +71,15 @@ class Perguntas extends Component {
         const respostaCorreta = _.filter(this.state.perguntas.perguntas[name].alternativas, { 'correta': true })[0].resposta
         const acertou = (respostaJogador === respostaCorreta)
         console.log("a resposta do jogador", resposta)
-        console.log("pergunta atual", this.state.perguntaAtual)
+        console.log("pergunta atual", this.state.perguntas.perguntas[name].titulo)
         console.log("a alternativa correta", _.filter(this.state.perguntas.perguntas[name].alternativas, { 'correta': true })[0].resposta)
         console.log("Acertou?", acertou)
+        const res = {
+            pergunta: this.state.perguntas.perguntas[name].titulo,
+            resposta,
+            acertou
+        }
+        this.setState({resultado: [...this.state.resultado, res]})
         if (acertou) {
             this.setState({pontos: this.state.pontos + 1})
         }
@@ -82,6 +89,7 @@ class Perguntas extends Component {
         return (
             <span >
                 <h3>PERGUNTA: {pergunta.titulo}</h3>
+                {JSON.stringify(this.state.resultado)}
                 <Grid columns={2}>
                     <Grid.Row>
                         <Grid.Column>

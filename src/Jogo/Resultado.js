@@ -4,23 +4,25 @@ import { List, Container } from 'semantic-ui-react'
 import Resposta from './Resposta'
 import Navegacao from './Navegacao'
 
-const resposta = {
-    id: 1,
-    titulo: 'Primeira Pergunta',
-    alternativa: 3
-}
+
 
 class Resultado extends Component {
     render() {
+        const { resultado } = this.props.location.state
         return (
             <div>
-            <Navegacao />
+                <Navegacao />
                 <h2>Seus resultados</h2>
                 {JSON.stringify(this.props.location.state)}
                 <p>Confira o seu desempenho nesta categoria</p>
                 <Container>
                     <List divided>
-                        <Resposta resposta={resposta}/>
+                        {
+                            Object.keys(resultado)
+                                .map(key => {
+                                    return <Resposta pergunta={resultado[key].pergunta} resposta={resultado[key].resposta} key={key} />
+                                })
+                        }
                     </List>
                 </Container>
             </div>

@@ -15,10 +15,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <header className="App-header">
-            <Header />
-            <h1 className="App-title">Jogo de Perguntas e Respostas</h1>
-          </header>
+          
           <Route path='/' exact component={Inicio} />
           <Route path='/categorias' component={Categorias} />
           <Route path='/perguntas' component={Perguntas} />

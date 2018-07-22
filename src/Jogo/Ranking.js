@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { Container, List } from 'semantic-ui-react'
 
 import Usuario from './Usuario'
+import Header from './Header'
 
 class Ranking extends Component {
     render() {
         return (
             <div>
+            <Header />
                 <h2>RANKING</h2>
                 <p>Quem é o mestre??</p>
                 <Container>

@@ -1,9 +1,12 @@
 import React from 'react'
 import { Container, Header, Segment, Card, Button } from 'semantic-ui-react'
 
+import Navegacao from './Navegacao'
+
 const Inicio = props => {
     return (
         <div>
+        <Navegacao />
             <Container>
                 <Segment piled>
                     Quiz
@@ -19,8 +22,9 @@ const Inicio = props => {
                         Acesse agora mesmo
                     </Card.Content>
                     <Card.Content>
-                        <Button basic color='blue'>Login com Facebook</Button>
-                        <Button basic color='green'>Usuário Administrativo</Button>
+                        <Button color='facebook'>Login com Facebook</Button>
+                        <Button color='twitter'>Login com Twitter</Button>
+                        <Button basic color='blue'>Usuário Administrativo</Button>
                     </Card.Content>
                 </Card>
 

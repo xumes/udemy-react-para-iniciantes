@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Header, Segment, Card, Button } from 'semantic-ui-react'
+import {Redirect} from 'react-router-dom'
 
 import config, { auth, providers } from './../config'
 import Navegacao from './Navegacao'
@@ -20,6 +21,8 @@ class Inicio extends Component {
                     usuario,
                     estaLogado: true
                 })
+                localStorage.setItem('nome', usuario.displayName)
+                localStorage.setItem('foto', usuario.photoURL)
             } else {
                 console.log('nao logou')
                 this.setState({ estaLogado: false })
@@ -33,6 +36,9 @@ class Inicio extends Component {
     }
 
     render() {
+        if(this.state.estaLogado){
+            return <Redirect to='/categorias' />
+        }
         return (
             <div>
                 <Navegacao />

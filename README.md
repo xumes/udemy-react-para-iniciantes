@@ -1,6 +1,6 @@
 # React para Iniciantes
 ### Criando um jogo de perguntas e respostas com React e Firebase
-![](https://udemy-images.udemy.com/course/100x100/1712902_87dc_2.jpg)
+![](https://udemy-images.udemy.com/course/100x100/1735528_06cc.jpg)
 
 Que tal aprender o framework javascript mais famoso da atualidade, em aulas práticas, de curta duração e construindo um jogo de perguntas e respostas? Este curso vai preparar você para criar e publicar aplicativos utilizando o React.js e o Firebase.
 

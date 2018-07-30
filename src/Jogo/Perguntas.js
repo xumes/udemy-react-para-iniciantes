@@ -13,10 +13,12 @@ class Perguntas extends Component {
             perguntas: {},
             estaCarregando: false,
             perguntaAtual: 0,
-            totalPerguntas: 0
+            totalPerguntas: 0,
+            resposta: {}
         }
 
         this.proximaPergunta = this.proximaPergunta.bind(this)
+        this.onRadioChange = this.onRadioChange.bind(this)
     }
 
     componentDidMount() {
@@ -59,7 +61,19 @@ class Perguntas extends Component {
         }
     }
 
-    renderPergunta(pergunta) {
+    onRadioChange = (e, {resposta, name}) => {
+        this.setState({resposta})
+
+        const respostaJogador = resposta
+        const respostaCorreta =  _.filter(this.state.perguntas.perguntas[name].alternativas, {'correta': true})[0].resposta
+        const acertou = (respostaJogador === respostaCorreta)
+        console.log("a resposta do jogador", resposta)
+        console.log("pergunta atual", this.state.perguntaAtual)
+        console.log("a alternativa correta", _.filter(this.state.perguntas.perguntas[name].alternativas, {'correta': true})[0].resposta)
+        console.log("Acertou?", acertou)
+    }
+
+    renderPergunta(pergunta, id) {
         return (
             <span >
                 <h3>PERGUNTA: {pergunta.titulo}</h3>
@@ -67,14 +81,23 @@ class Perguntas extends Component {
                     <Grid.Row>
                         <Grid.Column>
                             <Message color='yellow'>
+                            {JSON.stringify(pergunta.alternativas[1].correta)}
                                 <p>{pergunta.alternativas[1].resposta}</p>
-                                <Radio toggle />
+                                <Radio 
+                                    toggle 
+                                    name={id}
+                                    resposta={pergunta.alternativas[1].resposta}
+                                    onChange={this.onRadioChange}
+                                    />
                             </Message>
                         </Grid.Column>
                         <Grid.Column>
                             <Message color='teal'>
                                 <p>{pergunta.alternativas[2].resposta}</p>
-                                <Radio toggle />
+                                <Radio 
+                                    toggle 
+                                    name={id}
+                                    />
                             </Message>
                         </Grid.Column>
                     </Grid.Row>
@@ -82,13 +105,19 @@ class Perguntas extends Component {
                         <Grid.Column>
                             <Message color='pink'>
                                 <p>{pergunta.alternativas[3].resposta}</p>
-                                <Radio toggle />
+                                <Radio 
+                                    toggle 
+                                    name={id}
+                                    />
                             </Message>
                         </Grid.Column>
                         <Grid.Column>
                             <Message color='brown'>
                                 <p>{pergunta.alternativas[4].resposta}</p>
-                                <Radio toggle />
+                                <Radio 
+                                    toggle 
+                                    name={id}
+                                    />
                             </Message>
                         </Grid.Column>
                     </Grid.Row>
@@ -116,7 +145,7 @@ class Perguntas extends Component {
                             })
                     }
                     {
-                        this.state.perguntas.perguntas && this.renderPergunta(this.state.perguntas.perguntas[item[this.state.perguntaAtual]])
+                        this.state.perguntas.perguntas && this.renderPergunta(this.state.perguntas.perguntas[item[this.state.perguntaAtual]], item[this.state.perguntaAtual])
                         //return this.renderPergunta(this.state.perguntas.perguntas[key], key)
                     }
                     <Progress value={this.state.perguntaAtual + 1} total={item.length} progress='ratio'/>

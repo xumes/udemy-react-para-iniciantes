@@ -14,7 +14,9 @@ class Perguntas extends Component {
             estaCarregando: false,
             perguntaAtual: 0,
             totalPerguntas: 0,
-            resposta: {}
+            resposta: {},
+            pontos:0,
+            resultado: []
         }
 
         this.proximaPergunta = this.proximaPergunta.bind(this)
@@ -51,53 +53,67 @@ class Perguntas extends Component {
             })
     }
 
-    proximaPergunta(){
-        const {perguntaAtual, totalPerguntas} = this.state
+    proximaPergunta() {
+        const { perguntaAtual, totalPerguntas } = this.state
         console.log(perguntaAtual, totalPerguntas)
-        if (perguntaAtual < totalPerguntas -1){
-            this.setState({perguntaAtual: this.state.perguntaAtual + 1})
+        if (perguntaAtual < totalPerguntas - 1) {
+            this.setState({ perguntaAtual: this.state.perguntaAtual + 1 })
         } else {
             console.log("Terminou as perguntas, mostre as respostas")
+            console.log("PONTUAÇÃO: ", this.state.pontos)
         }
     }
 
-    onRadioChange = (e, {resposta, name}) => {
-        this.setState({resposta})
+    onRadioChange = (e, { resposta, name }) => {
+        this.setState({ resposta })
 
         const respostaJogador = resposta
-        const respostaCorreta =  _.filter(this.state.perguntas.perguntas[name].alternativas, {'correta': true})[0].resposta
+        const respostaCorreta = _.filter(this.state.perguntas.perguntas[name].alternativas, { 'correta': true })[0].resposta
         const acertou = (respostaJogador === respostaCorreta)
         console.log("a resposta do jogador", resposta)
-        console.log("pergunta atual", this.state.perguntaAtual)
-        console.log("a alternativa correta", _.filter(this.state.perguntas.perguntas[name].alternativas, {'correta': true})[0].resposta)
+        console.log("pergunta atual", this.state.perguntas.perguntas[name].titulo)
+        console.log("a alternativa correta", _.filter(this.state.perguntas.perguntas[name].alternativas, { 'correta': true })[0].resposta)
         console.log("Acertou?", acertou)
+        const res = {
+            pergunta: this.state.perguntas.perguntas[name].titulo,
+            resposta,
+            acertou
+        }
+        this.setState({resultado: [...this.state.resultado, res]})
+        if (acertou) {
+            this.setState({pontos: this.state.pontos + 1})
+        }
     }
 
     renderPergunta(pergunta, id) {
         return (
             <span >
                 <h3>PERGUNTA: {pergunta.titulo}</h3>
+                {JSON.stringify(this.state.resultado)}
                 <Grid columns={2}>
                     <Grid.Row>
                         <Grid.Column>
                             <Message color='yellow'>
-                            {JSON.stringify(pergunta.alternativas[1].correta)}
                                 <p>{pergunta.alternativas[1].resposta}</p>
-                                <Radio 
-                                    toggle 
+                                <Radio
+                                    toggle
                                     name={id}
                                     resposta={pergunta.alternativas[1].resposta}
+                                    checked={this.state.resposta === pergunta.alternativas[1].resposta}
                                     onChange={this.onRadioChange}
-                                    />
+                                />
                             </Message>
                         </Grid.Column>
                         <Grid.Column>
                             <Message color='teal'>
                                 <p>{pergunta.alternativas[2].resposta}</p>
-                                <Radio 
-                                    toggle 
+                                <Radio
+                                    toggle
                                     name={id}
-                                    />
+                                    resposta={pergunta.alternativas[2].resposta}
+                                    checked={this.state.resposta === pergunta.alternativas[2].resposta}
+                                    onChange={this.onRadioChange}
+                                />
                             </Message>
                         </Grid.Column>
                     </Grid.Row>
@@ -105,19 +121,25 @@ class Perguntas extends Component {
                         <Grid.Column>
                             <Message color='pink'>
                                 <p>{pergunta.alternativas[3].resposta}</p>
-                                <Radio 
-                                    toggle 
+                                <Radio
+                                    toggle
                                     name={id}
-                                    />
+                                    resposta={pergunta.alternativas[3].resposta}
+                                    checked={this.state.resposta === pergunta.alternativas[3].resposta}
+                                    onChange={this.onRadioChange}
+                                />
                             </Message>
                         </Grid.Column>
                         <Grid.Column>
                             <Message color='brown'>
                                 <p>{pergunta.alternativas[4].resposta}</p>
-                                <Radio 
-                                    toggle 
+                                <Radio
+                                    toggle
                                     name={id}
-                                    />
+                                    resposta={pergunta.alternativas[4].resposta}
+                                    checked={this.state.resposta === pergunta.alternativas[4].resposta}
+                                    onChange={this.onRadioChange}
+                                />
                             </Message>
                         </Grid.Column>
                     </Grid.Row>
@@ -148,7 +170,7 @@ class Perguntas extends Component {
                         this.state.perguntas.perguntas && this.renderPergunta(this.state.perguntas.perguntas[item[this.state.perguntaAtual]], item[this.state.perguntaAtual])
                         //return this.renderPergunta(this.state.perguntas.perguntas[key], key)
                     }
-                    <Progress value={this.state.perguntaAtual + 1} total={item.length} progress='ratio'/>
+                    <Progress value={this.state.perguntaAtual + 1} total={item.length} progress='ratio' />
                     <Button onClick={this.proximaPergunta}>Próxima</Button>
                 </span>
             </div>

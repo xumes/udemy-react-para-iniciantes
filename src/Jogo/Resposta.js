@@ -1,19 +1,24 @@
 import React from 'react'
-import { List, Label } from 'semantic-ui-react'
+import { List, Label, Icon } from 'semantic-ui-react'
 
 const Resposta = props => {
-     const {id, titulo, alternativa} = props.resposta
+    const { pergunta, resposta, acertou, key } = props
     return (
-        <List.Item>
+        <List.Item key={key}>
             <List.Content floated='left'>
                 <Label>
-                    {id}
+                    *
                 </Label>
-                {titulo}
+                {pergunta}
             </List.Content>
             <List.Content floated='right'>
-                {alternativa}
+                {acertou && <Icon name='thumbs up outline' />}
+                {!acertou && <Icon name='thumbs down outline' />}
             </List.Content>
+            <List.Content floated='right'>
+                {resposta}
+            </List.Content>
+
         </List.Item>
     )
 }

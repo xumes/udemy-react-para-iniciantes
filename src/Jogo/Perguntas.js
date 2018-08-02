@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, Radio, Button, Message, Icon, Progress } from 'semantic-ui-react'
+import {Redirect} from 'react-router-dom'
 import axios from 'axios'
 import _ from 'lodash'
 
@@ -16,7 +17,8 @@ class Perguntas extends Component {
             totalPerguntas: 0,
             resposta: {},
             pontos:0,
-            resultado: []
+            resultado: [],
+            terminei: false
         }
 
         this.proximaPergunta = this.proximaPergunta.bind(this)
@@ -61,6 +63,7 @@ class Perguntas extends Component {
         } else {
             console.log("Terminou as perguntas, mostre as respostas")
             console.log("PONTUAÇÃO: ", this.state.pontos)
+            this.setState({terminei: true})
         }
     }
 
@@ -89,7 +92,6 @@ class Perguntas extends Component {
         return (
             <span >
                 <h3>PERGUNTA: {pergunta.titulo}</h3>
-                {JSON.stringify(this.state.resultado)}
                 <Grid columns={2}>
                     <Grid.Row>
                         <Grid.Column>
@@ -152,6 +154,17 @@ class Perguntas extends Component {
         let item = []
         if (this.state.estaCarregando) {
             return <p>Carregando ...</p>
+        }
+        if (this.state.terminei){
+            return (
+                <Redirect to = {{
+                    pathname: '/resultado',
+                    state: {
+                        resultado: this.state.resultado,
+                        pontos: this.state.pontos
+                    }
+                }} />
+            )
         }
         return (
             <div>

@@ -23,6 +23,6 @@ Uma ótima oportunidade, vem aprender conosco.
 ## Meus Cursos na Udemy 
 Cupons de Desconto
 
-- [REACT PARA INICIANTES](https://www.udemy.com/react-para-iniciantes/?couponCode=GITHUB-CUPOM)
+- [React para Iniciantes](https://www.udemy.com/react-para-iniciantes/?couponCode=GITHUB-CUPOM)
 - [Criando um site para empresas com React.js e Firebase](https://www.udemy.com/xumes-react-criando-site-para-empresa/?couponCode=CUPOM-GITHUB)
 - [Chatbot: o que é e como fazer o seu](https://www.udemy.com/criando-chatbots/?couponCode=GITHUB-PROMO)
